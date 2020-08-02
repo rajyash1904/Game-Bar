@@ -150,18 +150,30 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
         {
         	score++;
         	lengthofsnake++;
-        	if(lengthofsnake == 6 ) 
-        	{
-        		delay=delay-50;
-        		timer.start();
-        	}
         	xpos = random.nextInt(34);
         	ypos = random.nextInt(23);
         }
         
         enemyimage.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
         
-        
+        for(int b=1;b<lengthofsnake;b++)
+        {
+        	if(snakexlen[b] == snakexlen[0] && snakeylen[b] == snakeylen[0])
+        	{
+        		right = false;
+        		left = false;
+        		up = false;
+        		down = false;
+        		
+        		g.setColor(Color.white);
+        		g.setFont(new Font ("arial", Font.BOLD, 50));
+        		g.drawString("Game Over", 300, 300);
+        		
+        		g.setFont(new Font ("arial", Font.BOLD, 20));
+        		g.drawString("Space to RESTART", 350, 340);
+        		
+        	}
+        }
         g.dispose();
     }
     
@@ -172,6 +184,13 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
     @Override
     public void keyPressed(KeyEvent e) 
     {
+    	if(e.getKeyCode() == KeyEvent.VK_SPACE)
+    	{
+    		moves = 0;
+    		score = 0;
+    		lengthofsnake = 3;
+    		repaint();
+    	}
         if(e.getKeyCode()== KeyEvent.VK_RIGHT)
         {
         	moves++;
