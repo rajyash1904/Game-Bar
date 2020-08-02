@@ -1,11 +1,14 @@
 package games;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,7 +16,12 @@ import javax.swing.Timer;
 /**
  *
  * @author Yashraj Balidani
+ * @author Milind Jain
+ * @author Sarvesh Choushetti
+ * @version 1.0
+ * 
  */
+
 public class snakeplay extends JPanel implements KeyListener, ActionListener
 {
 
@@ -40,9 +48,17 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
     private ImageIcon snakeimage;
     
     
+    private int [] enemyxpos = new int[] {25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750,775,800,825,850};
+    private int [] enemyypos = new int[] {75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625};
     
     private ImageIcon titleImage;
+    private ImageIcon enemyimage;
     
+    private Random random = new Random();
+    private int xpos = random.nextInt(34);
+    private int ypos = random.nextInt(23);
+    
+    private int score = 0;
     
     public snakeplay()
     {
@@ -82,6 +98,16 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
         g.setColor(Color.BLACK);
         g.fillRect(25, 75, 850, 575);  
         
+        // draw score
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("arial", Font.PLAIN,14));
+        g.drawString("Score: "+score, 780, 30);
+        
+     // draw length of snake
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("arial", Font.PLAIN,14));
+        g.drawString("Length: "+lengthofsnake, 780, 50);
+        
         rightmouth = new ImageIcon("rightmouth.png");
         rightmouth.paintIcon(this, g, snakexlen[0], snakeylen[0]);
         
@@ -118,6 +144,23 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
             }
         }
         
+        enemyimage = new ImageIcon("enemy.png");
+        
+        if(enemyxpos[xpos] == snakexlen[0] && enemyypos[ypos] == snakeylen[0])
+        {
+        	score++;
+        	lengthofsnake++;
+        	if(lengthofsnake == 6 ) 
+        	{
+        		delay=delay-50;
+        		timer.start();
+        	}
+        	xpos = random.nextInt(34);
+        	ypos = random.nextInt(23);
+        }
+        
+        enemyimage.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
+        
         
         g.dispose();
     }
@@ -127,7 +170,71 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) 
+    {
+        if(e.getKeyCode()== KeyEvent.VK_RIGHT)
+        {
+        	moves++;
+        	right = true;
+        	if(!left)
+        	{
+        		right = true;
+        	}else
+        	{
+        		right = false;
+        		left = true;
+        	}
+        	up = false;
+        	down = false;
+        }
+        
+        if(e.getKeyCode()== KeyEvent.VK_LEFT)
+        {
+        	moves++;
+        	left = true;
+        	if(!right)
+        	{
+        		left = true;
+        	}else
+        	{
+        		left = false;
+        		right = true;
+        	}
+        	up = false;
+        	down = false;
+        }
+        
+        if(e.getKeyCode()== KeyEvent.VK_UP)
+        {
+        	moves++;
+        	up = true;
+        	if(!down)
+        	{
+        		up = true;
+        	}else
+        	{
+        		up = false;
+        		down = true;
+        	}
+        	left = false;
+        	right = false;
+        }
+        
+        if(e.getKeyCode()== KeyEvent.VK_DOWN)
+        {
+        	moves++;
+        	down = true;
+        	if(!up)
+        	{
+        		down = true;
+        	}else
+        	{
+        		down = false;
+        		up = true;
+        	}
+        	left = false;
+        	right = false;
+        }
     }
 
     @Override
@@ -135,7 +242,101 @@ public class snakeplay extends JPanel implements KeyListener, ActionListener
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) 
+    {
+    	timer.start();
+    	if(right)
+    	{
+    		for(int r= lengthofsnake-1;r>=0;r--)
+    		{
+    			snakeylen[r+1] = snakeylen[r];
+    		}
+    		for(int r= lengthofsnake;r>=0;r--)
+    		{
+    			if(r==0)
+    			{
+    				snakexlen[r] = snakexlen[r] + 25;
+    			}
+    			else
+    			{
+    				snakexlen[r] = snakexlen[r-1];
+    			}
+    			if(snakexlen[r]>850)
+    			{
+    				snakexlen[r] = 25;
+    			}
+    		}
+    		repaint();
+    	}
+    	if(left)
+    	{
+    		for(int r= lengthofsnake-1;r>=0;r--)
+    		{
+    			snakeylen[r+1] = snakeylen[r];
+    		}
+    		for(int r= lengthofsnake;r>=0;r--)
+    		{
+    			if(r==0)
+    			{
+    				snakexlen[r] = snakexlen[r] - 25;
+    			}
+    			else
+    			{
+    				snakexlen[r] = snakexlen[r-1];
+    			}
+    			if(snakexlen[r]<25)
+    			{
+    				snakexlen[r] = 850;
+    			}
+    		}
+    		repaint();
+    	}
+    	if(up)
+    	{
+    		for(int r= lengthofsnake-1;r>=0;r--)
+    		{
+    			snakexlen[r+1] = snakexlen[r];
+    		}
+    		for(int r= lengthofsnake;r>=0;r--)
+    		{
+    			if(r==0)
+    			{
+    				snakeylen[r] = snakeylen[r] - 25;
+    			}
+    			else
+    			{
+    				snakeylen[r] = snakeylen[r-1];
+    			}
+    			if(snakeylen[r]<75)
+    			{
+    				snakeylen[r] = 625;
+    			}
+    		}
+    		repaint();
+    	}
+    	if(down)
+    	{
+    		for(int r= lengthofsnake-1;r>=0;r--)
+    		{
+    			snakexlen[r+1] = snakexlen[r];
+    		}
+    		for(int r= lengthofsnake;r>=0;r--)
+    		{
+    			if(r==0)
+    			{
+    				snakeylen[r] = snakeylen[r] + 25;
+    			}
+    			else
+    			{
+    				snakeylen[r] = snakeylen[r-1];
+    			}
+    			if(snakeylen[r]>625)
+    			{
+    				snakeylen[r] = 75;
+    			}
+    		}
+    		repaint();
+    	}
     }
     
 }

@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *  set this file visible in code to start snake game
+ *  snake.setVisible(true);
+ *  
+ *  snake play is implementation of game file this initialize the game;
  */
 package games;
 
@@ -11,6 +12,10 @@ import javax.swing.JFrame;
 /**
  *
  * @author Yashraj Balidani
+ * @author Milind Jain
+ * @author Sarvesh Choushetti
+ * @version 1.0
+ * 
  */
 public class Snake 
 {
@@ -19,7 +24,7 @@ public class Snake
         JFrame obj = new JFrame();
         snakeplay splay = new snakeplay();
         obj.setBounds(10, 10, 905, 700);
-        obj.setBackground(Color.blue);
+        obj.setBackground(Color.darkGray);
         obj.setResizable(false);
         obj.setVisible(true);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
