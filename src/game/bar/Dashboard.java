@@ -14,8 +14,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -112,12 +114,40 @@ public class Dashboard extends JFrame {
 		navigation_panel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 10));
 		JPanel test_panel = new JPanel();
 		test_panel.setLayout(new BorderLayout());
-		
+
 		JPanel test_panel_2 = new JPanel();
 		test_panel_2.setLayout(new BorderLayout());
-		
+
 		JButton games_button = new JButton("Games");
-		
+//		
+//		games_button.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//
+//				ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
+//						"F: && cd \"F:\\Projects\\COLLAB\\Game-Bar\\PythonGame\" && \"virtual_env_game\\Scripts\\activate.bat\" && python game\\main.py");
+//				builder.redirectErrorStream(true);
+//				try {
+//					Process p = builder.start();
+//					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//					String line;
+//
+//					while (true) {
+//						line = r.readLine();
+//						System.out.println(line);
+////			            System.out.println("Running");
+//						if (line == null) {
+//							break;
+//						}
+//
+//					}
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//
+
 		games_button.setBackground(nav_bar_icons_bg);
 		games_button.setForeground(nav_bar_icons_fg);
 		games_button.setFont(new Font("Segoe UI", Font.BOLD, 20));
@@ -134,9 +164,11 @@ public class Dashboard extends JFrame {
 				games_button.setBackground(theme_color);
 				games_button.setForeground(Color.white);
 				Border test_panel_inside = BorderFactory.createLineBorder(theme_color, 5);
-				Border test_panel_overall_mouseover  = BorderFactory.createCompoundBorder(outside_border, test_panel_inside);
+				Border test_panel_overall_mouseover = BorderFactory.createCompoundBorder(outside_border,
+						test_panel_inside);
 				test_panel.setBorder(test_panel_overall_mouseover);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				games_button.setBackground(nav_bar_icons_bg);
@@ -144,31 +176,32 @@ public class Dashboard extends JFrame {
 				test_panel.setBorder(overall_border);
 			}
 		});
-		
-		
+
 		JButton score_button = new JButton("Score");
 		score_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 			}
 		});
-		
+
 		score_button.setBackground(nav_bar_icons_bg);
 		score_button.setForeground(nav_bar_icons_fg);
 		score_button.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		score_button.setBorder(null);
 		score_button.setFocusPainted(false);
 		test_panel_2.setBorder(overall_border);
-		
+
 		score_button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				score_button.setBackground(theme_color);
 				score_button.setForeground(Color.white);
 				Border test_panel_2_inside = BorderFactory.createLineBorder(theme_color, 5);
-				Border test_panel_2_overall_mouseover  = BorderFactory.createCompoundBorder(outside_border, test_panel_2_inside);
+				Border test_panel_2_overall_mouseover = BorderFactory.createCompoundBorder(outside_border,
+						test_panel_2_inside);
 				test_panel_2.setBorder(test_panel_2_overall_mouseover);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				score_button.setBackground(nav_bar_icons_bg);
@@ -176,7 +209,6 @@ public class Dashboard extends JFrame {
 				test_panel_2.setBorder(overall_border);
 			}
 		});
-		
 
 		test_panel.setMaximumSize(new Dimension(width / 10, height / 20));
 		test_panel.add(games_button);
@@ -185,21 +217,21 @@ public class Dashboard extends JFrame {
 		test_panel_2.add(score_button);
 
 		navigation_panel.add(test_panel);
-		
+
 		Component verticalStrut1 = Box.createVerticalStrut(2);
 		verticalStrut1.setBackground(nav_bar_icons_fg);
 		navigation_panel.add(verticalStrut1);
-		
+
 		navigation_panel.add(test_panel_2);
-		
+
 		Component verticalStrut2 = Box.createVerticalStrut(2);
 		verticalStrut2.setBackground(nav_bar_icons_fg);
 		navigation_panel.add(verticalStrut2);
-		
-		class BlankPanel extends JPanel{
+
+		class BlankPanel extends JPanel {
 			private BufferedImage bg_image;
-			
-			BlankPanel(String image_path){
+
+			BlankPanel(String image_path) {
 				try {
 					this.bg_image = ImageIO.read(new File(image_path));
 				} catch (IOException e) {
@@ -207,29 +239,29 @@ public class Dashboard extends JFrame {
 					e.printStackTrace();
 				}
 			}
-			
+
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(bg_image, 0, 0, this);
 			}
 		}
-		
+
 		JPanel blank_panel = new JPanel();
 		JLabel image_label = new JLabel();
-		
+
 		image_label.setIcon(new ImageIcon("images/fist.png"));
 		blank_panel.add(image_label);
-		
+
 		JLabel unleash = new JLabel("<html><CENTER>UNLEASH<br>THE<br>SPIRIT</CENTER><html>");
 		unleash.setForeground(Color.white);
 		unleash.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		blank_panel.add(unleash);
-		
-		
+
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
-			Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/deathrattlebb_reg.ttf")).deriveFont(43f);
+			Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/deathrattlebb_reg.ttf"))
+					.deriveFont(43f);
 			ge.registerFont(customFont);
 			unleash.setFont(customFont);
 		} catch (FontFormatException e1) {
@@ -239,24 +271,20 @@ public class Dashboard extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 
-		
 		Border inside_border_blank_panel = BorderFactory.createLineBorder(Color.white, 3);
 		Border outside_border_blank_panel = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-		Border overall_border_blank_panel = BorderFactory.createCompoundBorder(outside_border_blank_panel, inside_border_blank_panel);
-		
+		Border overall_border_blank_panel = BorderFactory.createCompoundBorder(outside_border_blank_panel,
+				inside_border_blank_panel);
+
 //		blank_panel.setBorder(overall_border_blank_panel);
-		
+
 		blank_panel.setBackground(theme_color);
-		
+
 //		navigation_panel.setBackground(theme_color);
 
 		navigation_panel.add(blank_panel);
 
-		
-		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(100, 100);
 		setSize(width, height);
