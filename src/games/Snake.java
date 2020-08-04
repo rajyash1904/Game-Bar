@@ -21,7 +21,7 @@ public class Snake
 {
     public static void main(String[] args)
     {
-        JFrame obj = new JFrame();
+        JFrame obj = new JFrame("Snake Xenzia");
         snakeplay splay = new snakeplay();
         obj.setBounds(10, 10, 905, 700);
         obj.setBackground(Color.darkGray);
