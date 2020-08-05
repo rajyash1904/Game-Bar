@@ -1,10 +1,8 @@
 package games;
-
 /**
  *
  * @author Yashraj Balidani
  * @author Milind Jain
- * @author Sarvesh Choushetti
  * @version 1.0
  * 
  */

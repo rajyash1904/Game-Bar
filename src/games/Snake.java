@@ -13,7 +13,6 @@ import javax.swing.JFrame;
  *
  * @author Yashraj Balidani
  * @author Milind Jain
- * @author Sarvesh Choushetti
  * @version 1.0
  * 
  */
