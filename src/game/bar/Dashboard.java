@@ -364,6 +364,7 @@ public class Dashboard extends JFrame {
 				play_button = new JButton("<html><span style='font-size:15px'>Play</span><html>");
 				play_button.setFocusPainted(false);
 				play_button.setBackground(Color.white);
+				
 				btn_encloser.add(play_button);
 				btn_encloser.setBackground(theme_color);
 				main_panel.add(btn_encloser);
